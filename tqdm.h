@@ -103,7 +103,8 @@ class tqdm {
             fflush(stdout);
         }
         void progress(int curr, int tot) {
-            if(is_tty && (curr%period == 0)) {
+//            if(is_tty && (curr%period == 0)) {
+            if(is_tty) {
                 total_ = tot;
                 nupdates++;
                 auto now = std::chrono::system_clock::now();
