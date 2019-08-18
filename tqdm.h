@@ -38,6 +38,7 @@ class tqdm {
 
         std::string right_pad = "▏";
         std::string label = "";
+        std::string title = "";
 
         void hsv_to_rgb(float h, float s, float v, int& r, int& g, int& b) {
             if (s < 1e-6) {
@@ -91,7 +92,8 @@ class tqdm {
             bars = {" ", " ", " ", " ", " ", " ", " ", " ", "#"}; 
             right_pad = "|";
         }
-        void set_label(std::string label_) { label = label_; }
+        void set_label(std::string_view label_) { label = label_; }
+        void set_title(std::string_view title_) { title = title_; }
         void disable_colors() {
             color_transition = false;
             use_colors = false;
@@ -160,6 +162,8 @@ class tqdm {
                         printf("\033[32m ");
                     }
                 }
+                // print title before bar
+                printf("%s:", title.c_str());
                 for (int i = 0; i < ifills; i++) std::cout << bars[8];
                 if (!in_screen and (curr != tot)) printf("%s",bars[(int)(8.0*(fills-ifills))]);
                 for (int i = 0; i < width-ifills-1; i++) std::cout << bars[0];
